@@ -1,0 +1,88 @@
+- alias: Send message on low Leecher4 space
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.disk_use_percent_
+    above: 75
+    for:
+      minutes: 15
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      message: Low space on leecher4 @{{now().strftime("%H:%M")}}h!
+  id: d54c48a0abb04d348e858fc51796db46
+- alias: turn on livingroom and garden lights 1 hour before sunset
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:45:00
+  action:
+  - service: homeassistant.turn_on
+    data:
+      entity_id: group.livingroomlights
+  - service: homeassistant.turn_on
+    data:
+      entity_id: group.gardenlights
+  id: 61ba0602058741f0b22a872bdff7195a
+- alias: Turn off some garden lights at 23:59
+  id: turnoffgardentime
+  trigger:
+  - platform: time
+    at: '23:59:00'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: light.tuin
+  - service: homeassistant.turn_off
+    data:
+      entity_id: group.gardenlights
+- id: Notification_trein_naar_Noi
+  alias: Vertrektijd trein naar Noi
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.google_maps_118157225633565558044
+    event: leave
+    zone: zone.work2
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      message: Vertrektijd {{ states.sensor.duivendrechtnoi.attributes.departure_time_actual
+        }} vanaf spoor {{ states.sensor.duivendrechtnoi.attributes.departure_platform
+        }}, aankomst om {{ states.sensor.duivendrechtnoi.attributes.arrival_time_actual
+        }}. Volgende trein vertrekt om {{ states.sensor.duivendrechtnoi.attributes.next
+        }}.
+      title: 'Trein naar NOI: {{ states.sensor.duivendrechtnoi.attributes.status }}.'
+- alias: '[LOCATION]: Notify when Ad leaves a zone'
+  id: notifyadleave
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.google_maps_118157225633565558044
+    event: leave
+    zone: zone.Home
+  condition:
+  - condition: time
+    after: 06:00:00
+    before: '23:00:00'
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      message: Ad vertrekt van huis
+- id: '1540710718548'
+  alias: poweroff bedroomplug after 07:00
+  trigger:
+  - at: 07:00
+    platform: time
+  condition: []
+  action:
+  - data:
+      entity_id: switch.neo_coolcam_power_plug_12a_switch
+    service: homeassistant.turn_off
+- id: '1540710799377'
+  alias: poweron bedroom plug at 22:00
+  trigger:
+  - at: '22:00'
+    platform: time
+  condition: []
+  action:
+  - data:
+      entity_id: switch.neo_coolcam_power_plug_12a_switch
+    service: homeassistant.turn_on

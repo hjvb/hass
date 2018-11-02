@@ -18,3 +18,7 @@ trains:
   entities:
   - sensor.duivendrechtnoi
   - sensor.noiduivendrecht
+Front_Window_sensor:
+  name: Front Window sensor
+  entities:
+    - binary_sensor.neo_coolcam_doorwindow_detector_sensor

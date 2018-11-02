@@ -69,12 +69,7 @@ sensor:
     - type: disk_use_percent
       arg: /
     - type: memory_use_percent
-    - type: memory_use
-    - type: memory_free
     - type: processor_use
-    - type: swap_use_percent
-    - type: swap_use
-    - type: swap_free
     - type: last_boot
   - platform: nederlandse_spoorwegen
     email: !secret ns_username

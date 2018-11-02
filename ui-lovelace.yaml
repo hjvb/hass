@@ -1,0 +1,181 @@
+resources:
+  - url: /local/monster-card.js?v=0
+    type: js
+  - url: /local/bignumber-card.js?v=0
+    type: js
+  - url: /local/gauge-card.js?v=0
+    type: js
+
+name: Home
+background: radial-gradient(black, skyblue)
+views:
+  - title: Thuis
+    icon: mdi:home
+    cards:
+      - type: custom:monster-card
+        card:
+          type: entities
+          title: Home presence
+        filter:
+          include:
+            - domain: device_tracker
+              state: home
+              options:
+                secondary_info: last-changed
+          exclude:
+           - entity_id: device_tracker.4c66414b10aa
+      - type: horizontal-stack
+        cards:
+          - type: custom:gauge-card
+            title: Bathroom Temp
+            entity: sensor.philio_technology_corporation_phpat02beu_multisensor_2in1_temperature
+            min: 0
+            max: 35
+            severity:
+              red: 29
+              green: 15
+              amber: 25
+          - type: custom:gauge-card
+            title: Bathroom Humidity
+            entity: sensor.philio_technology_corporation_phpat02beu_multisensor_2in1_relative_humidity
+            min: 0
+            max: 100
+            severity:
+              red: 80
+              green: 0
+              amber: 65
+      - type: weather-forecast
+        entity: weather.home
+      - type: "custom:monster-card"
+        show_empty: false
+        card:
+          type: entities
+          title: Lights on
+        filter:
+          include:
+            - domain: light
+              state: 'on'
+
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: Sonos
+        filter:
+          include:
+            - domain: media_player
+          exclude:
+           - entity_id: media_player.huiskamer
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: Server
+        filter:
+          include:
+            - entity_id: sensor.disk_use_percent_
+            - entity_id: sensor.memory_use_percent
+            - entity_id: sensor.processor_use
+      - type: "custom:monster-card"        
+        card:
+          type: entities
+          title: Doors Open
+        filter:
+          include:
+            - entity_id: "binary_sensor.neo_front_door"              
+              options:
+                secondary_info: last-changed
+
+
+#debug tab showing all
+  - title: Debug
+    icon: mdi:settings
+    cards:
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All binary sensors
+        filter:
+          include:
+            - domain: binary_sensor
+      - type: "custom:monster-card"
+        card:
+          type: glance
+          title: All cameras
+        filter:
+          include:
+            - domain: camera
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All climate
+        filter:
+          include:
+            - domain: climate
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All covers
+        filter:
+          include:
+            - domain: cover
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All device trackers
+        filter:
+          include:
+            - domain: device_tracker
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All input booleans
+        filter:
+          include:
+            - domain: input_boolean
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All lights
+        filter:
+          include:
+            - domain: light
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All media players
+        filter:
+          include:
+            - domain: media_player
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All sensors
+        filter:
+          include:
+            - domain: sensor
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All sun
+        filter:
+          include:
+            - domain: sun
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All switches
+        filter:
+          include:
+            - domain: switch
+      - type: "custom:monster-card"
+        card:
+          type: entities
+          title: All zwave
+        filter:
+          include:
+            - domain: zwave
+
+
+
+
+
+

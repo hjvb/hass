@@ -23,6 +23,23 @@
     data:
       entity_id: group.gardenlights
   id: 61ba0602058741f0b22a872bdff7195a
+- alias: turn on front door light after sunset
+  trigger:
+  - platform: sun
+    event: sunset
+  action:
+  - service: homeassistant.turn_on
+    data:
+      entity_id: light.voordeur
+- alias: turn off front door light after 0100
+  trigger:
+  - platform: time
+    at: '01:00:00'
+  action:
+  - service: homeassistant.turn_off
+    data:
+      entity_id: light.voordeur
+  
 - alias: Turn off some garden lights at 23:59
   id: turnoffgardentime
   trigger:
@@ -86,3 +103,30 @@
   - data:
       entity_id: switch.neo_coolcam_power_plug_12a_switch
     service: homeassistant.turn_on
+
+- alias: "[SECURITY]: Notify when door opens in the night"
+  id: notifydooropennight
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.neo_front_door
+      from: 'off'
+      to: 'on'
+  condition:    
+    - condition: time
+      after: '23:30:00'
+      before: '05:30:00'
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      message: 'Front door open during the night'
+  - service: light.turn_on
+    data:
+      entity_id: light.woonkamer
+      flash: long
+  - delay:
+      seconds: 3
+  - service: light.turn_off
+    data:
+      entity_id: light.woonkamer
+
+

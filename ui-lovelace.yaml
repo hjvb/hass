@@ -83,7 +83,14 @@ views:
             - entity_id: "binary_sensor.neo_front_door"              
               options:
                 secondary_info: last-changed
-
+      - type: map
+        title: Location
+        aspect_ratio: 100%
+        default_zoom: 8
+        entities:
+          - zone.home
+          - device_tracker.google_maps_118157225633565558044  # Ad
+  # enter sas here
 
 #debug tab showing all
   - title: Debug

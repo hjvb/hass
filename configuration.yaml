@@ -121,6 +121,24 @@ device_tracker:
     username: !secret glocmail
     password: !secret glocpass
 
+influxdb:
+  host: !secret influxhost
+  username: !secret influxuser
+  password: !secret influxpassword
+  port: 8086
+  database: home_assistant
+  default_measurement: state
+  exclude:
+    domains:
+      - automation
+      - calendar
+      - groups
+      - light
+      - media_player
+  tags:
+    instance: prod
+    source: homeassistant
+
 zwave:
   usb_path: /dev/ttyACM0
   network_key: !secret zwave_key

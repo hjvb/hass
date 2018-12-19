@@ -22,6 +22,9 @@
   - service: homeassistant.turn_on
     data:
       entity_id: group.gardenlights
+  - service: homeassistant.turn_on
+    data:
+      entity_id: light.kitchen
   id: 61ba0602058741f0b22a872bdff7195a
 - alias: turn on front door light after sunset
   trigger:

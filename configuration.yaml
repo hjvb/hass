@@ -156,6 +156,8 @@ zwave:
        ignored: true
     "sensor.*sourcenodeid*":
        ignored: true
+    "light.fibaro_system_fgd212_dimmer_2_level_2":
+       ignored: true
 
 group: !include groups.yaml
 automation: !include automations.yaml

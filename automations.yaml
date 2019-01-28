@@ -1,7 +1,7 @@
 - alias: Send message on low Leecher4 space
   trigger:
     platform: numeric_state
-    entity_id: sensor.disk_use_percent_
+    entity_id: sensor.disk_use_percent
     above: 75
     for:
       minutes: 15
@@ -25,6 +25,9 @@
   - service: homeassistant.turn_on
     data:
       entity_id: light.kitchen
+  - service: homeassistant.turn_on
+    data:
+      entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
   id: 61ba0602058741f0b22a872bdff7195a
 - alias: turn on front door light after sunset
   trigger:
@@ -55,6 +58,18 @@
   - service: homeassistant.turn_off
     data:
       entity_id: group.gardenlights
+
+- alias: Turn off dinner light at 19:30
+  id: turnoffdinnerlight
+  trigger:
+  - platform: time
+    at: '19:30:00'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
+
+
 - id: Notification_trein_naar_Noi
   alias: Vertrektijd trein naar Noi
   trigger:

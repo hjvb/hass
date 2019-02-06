@@ -16,9 +16,9 @@ gardenlights:
 trains:
   name: trains
   entities:
-  - sensor.duivendrechtnoi
-  - sensor.noiduivendrecht
+  - sensor.duivendrecht_noi
+  - sensor.noi_duivendrecht
 Front_Window_sensor:
   name: Front Window sensor
   entities:
-    - binary_sensor.neo_coolcam_doorwindow_detector_sensor
+    - binary_sensor.neo_front_door

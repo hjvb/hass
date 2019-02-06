@@ -80,12 +80,12 @@
   action:
   - service: telegram_bot.send_message
     data_template:
-      message: Vertrektijd {{ states.sensor.duivendrechtnoi.attributes.departure_time_actual
-        }} vanaf spoor {{ states.sensor.duivendrechtnoi.attributes.departure_platform
-        }}, aankomst om {{ states.sensor.duivendrechtnoi.attributes.arrival_time_actual
-        }}. Volgende trein vertrekt om {{ states.sensor.duivendrechtnoi.attributes.next
+      message: Vertrektijd {{ states.sensor.duivendrecht_noi.attributes.departure_time_actual
+        }} vanaf spoor {{ states.sensor.duivendrecht_noi.attributes.departure_platform
+        }}, aankomst om {{ states.sensor.duivendrecht_noi.attributes.arrival_time_actual
+        }}. Volgende trein vertrekt om {{ states.sensor.duivendrecht_noi.attributes.next
         }}.
-      title: 'Trein naar NOI: {{ states.sensor.duivendrechtnoi.attributes.status }}.'
+      title: 'Trein naar NOI: {{ states.sensor.duivendrecht_noi.attributes.status }}.'
 - alias: '[LOCATION]: Notify when Ad leaves a zone'
   id: notifyadleave
   trigger:

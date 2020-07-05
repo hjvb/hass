@@ -15,13 +15,20 @@ homeassistant:
 
 # Enables the frontend
 frontend:
+  themes: !include themes.yaml
 
 # Enables configuration UI
 config:
+system_health:
+
+mobile_app:
 
 http:
+  ssl_certificate: !secret cert
+  ssl_key: !secret privkey
+  
   # Secrets are defined in the file secrets.yaml
-  api_password: !secret http_password
+ # api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
 
@@ -42,6 +49,11 @@ conversation:
 
 # Enables support for tracking state changes over time
 history:
+  exclude:
+    domains:
+      - automation
+      - calendar
+      - groups
 
 # View all events in a logbook
 logbook:
@@ -51,6 +63,23 @@ map:
 
 recorder:
   purge_keep_days: 5
+  exclude:
+    domains:
+      - automation
+      - binary_sensor
+      - calendar
+      - groups
+    entities:
+      - sun.sun 
+      - sensor.date
+      - sensor.time
+      - sensor.processor_use
+      - device_tracker.google_maps_118157225633565558044
+      - weather.home
+      - light.hue_go_1
+      - sensor.memory_use_percent
+      - sensor.duivendrecht_noi
+      - sensor.noi_duivendrecht 
 
 # Track the sun
 sun:
@@ -72,8 +101,7 @@ sensor:
     - type: processor_use
     - type: last_boot
   - platform: nederlandse_spoorwegen
-    email: !secret ns_username
-    password: !secret ns_password
+    api_key: !secret ns_apikey
     routes:
     - name: Noi-Duivendrecht
       from: Laa
@@ -81,10 +109,18 @@ sensor:
     - name: Duivendrecht-Noi
       from: Dvd
       to: Laa
+  - platform: template
+    sensors:
+     babyroom_temperature:
+       friendly_name: 'Baby Kamer Temperatuur'
+       value_template: '{{sensor.philio_technology_corporation_phpat02beu_multisensor_2in1_temperature}}'
+       unit_of_measurement: '°C'
+
 
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
+    service_name: google_say
     language: 'nl'
 
 cast:
@@ -107,19 +143,18 @@ telegram_bot:
       - !secret telegram_chatid
 
 device_tracker:
-  - platform: unifi
-    host: !secret unifihost
-    username: !secret unifyusername
-    password: !secret unifypassword
-    ssid_filter:
-      - !secret SSID
-    verify_ssl: false
-    consider_home: 300
-    interval_seconds: 10
-    track_new_devices: no
+#  - platform: unifi
+#    host: !secret unifihost
+#    username: !secret unifyusername
+#    password: !secret unifypassword
+#    ssid_filter:
+#      - !secret SSID
+#    verify_ssl: false
+#    consider_home: 300
+#    interval_seconds: 10
+#    track_new_devices: no
   - platform: google_maps
     username: !secret glocmail
-    password: !secret glocpass
 
 influxdb:
   host: !secret influxhost
@@ -142,7 +177,7 @@ influxdb:
 zwave:
   usb_path: /dev/ttyACM0
   network_key: !secret zwave_key
-  polling_interval: 30000  
+  polling_interval: 30000
   device_config_glob:
     "sensor.neo_coolcam_power_plug_12a_exporting":
        ignored: true
@@ -157,6 +192,8 @@ zwave:
     "sensor.*sourcenodeid*":
        ignored: true
     "light.fibaro_system_fgd212_dimmer_2_level_2":
+       ignored: true
+    "light.fibaro_system_fgd212_dimmer_2_level_4":
        ignored: true
 
 group: !include groups.yaml

@@ -1,18 +1,18 @@
-livingroomlights:
-  name: livingroomlights
-  view: yes
-  entities:
-   - light.hue_ambiance_candle_1
-   - light.hue_ambiance_candle_2
-   - light.hue_ambiance_lamp_2
-gardenlights:
-  name: gardenlights
-  view: yes
-  entities:
-   - light.hue_outdoor_spot_1
-   - light.hue_outdoor_spot_2
-   - light.hue_ambiance_lamp_1
-   - light.hue_ambiance_lamp_3
+#livingroomlights:
+#  name: livingroomlights
+#  view: yes
+#  entities:
+#   - light.hue_ambiance_candle_1
+#   - light.hue_ambiance_candle_2
+#   - light.hue_ambiance_lamp_2
+#gardenlights:
+#  name: gardenlights
+#  view: yes
+#  entities:
+#   - light.hue_outdoor_spot_1
+#   - light.hue_outdoor_spot_2
+#   - light.hue_ambiance_lamp_1
+#   - light.hue_ambiance_lamp_3
 trains:
   name: trains
   entities:

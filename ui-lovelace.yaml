@@ -1,188 +1,188 @@
-resources:
-  - url: /local/monster-card.js?v=0
-    type: js
-  - url: /local/bignumber-card.js?v=0
-    type: js
-  - url: /local/gauge-card.js?v=0
-    type: js
 
-name: Home
-background: radial-gradient(black, skyblue)
-views:
-  - title: Thuis
-    icon: mdi:home
-    cards:
-      - type: custom:monster-card
-        card:
-          type: entities
-          title: Home presence
-        filter:
-          include:
-            - domain: device_tracker
-              state: home
-              options:
+
+
+
+
+
+
+
+
                 secondary_info: last-changed
-          exclude:
-           - entity_id: device_tracker.4c66414b10aa
-      - type: horizontal-stack
-        cards:
-          - type: custom:gauge-card
-            title: Bathroom Temp
-            entity: sensor.philio_technology_corporation_phpat02beu_multisensor_2in1_temperature
-            min: 0
-            max: 35
-            severity:
-              red: 29
-              green: 15
+                secondary_info: last-changed
               amber: 25
-          - type: custom:gauge-card
-            title: Bathroom Humidity
-            entity: sensor.philio_technology_corporation_phpat02beu_multisensor_2in1_relative_humidity
-            min: 0
-            max: 100
-            severity:
-              red: 80
-              green: 0
               amber: 65
-      - type: weather-forecast
-        entity: weather.home
-      - type: "custom:monster-card"
-        show_empty: false
-        card:
-          type: entities
-          title: Lights on
-        filter:
-          include:
-            - domain: light
+              green: 0
+              green: 15
+              options:
+              options:
+              red: 29
+              red: 80
               state: 'on'
-
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: Sonos
-        filter:
-          include:
+              state: home
+            - domain: binary_sensor
+            - domain: camera
+            - domain: climate
+            - domain: cover
+            - domain: device_tracker
+            - domain: device_tracker
+            - domain: input_boolean
+            - domain: light
+            - domain: light
             - domain: media_player
-          exclude:
-           - entity_id: media_player.huiskamer
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: Server
-        filter:
-          include:
+            - domain: media_player
+            - domain: sensor
+            - domain: sun
+            - domain: switch
+            - domain: zwave
+            - entity_id: "binary_sensor.neo_front_door"              
             - entity_id: sensor.disk_use_percent_
             - entity_id: sensor.memory_use_percent
             - entity_id: sensor.processor_use
-      - type: "custom:monster-card"        
-        card:
-          type: entities
-          title: Doors Open
-        filter:
+            entity: sensor.philio_technology_corporation_phpat02beu_multisensor_2in1_relative_humidity
+            entity: sensor.philio_technology_corporation_phpat02beu_multisensor_2in1_temperature
+            max: 100
+            max: 35
+            min: 0
+            min: 0
+            severity:
+            severity:
+            title: Babykamer Humidity
+            title: Babykamer Temp
+           - entity_id: device_tracker.4c66414b10aa
+           - entity_id: media_player.huiskamer
+          - device_tracker.google_maps_118157225633565558044  # Ad
+          - type: custom:gauge-card
+          - type: custom:gauge-card
+          - zone.home
+          exclude:
+          exclude:
           include:
-            - entity_id: "binary_sensor.neo_front_door"              
-              options:
-                secondary_info: last-changed
-      - type: map
-        title: Location
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:
+          include:``1``1`
+          title: All binary sensors
+          title: All cameras
+          title: All climate
+          title: All covers
+          title: All device trackers45-=`67891236789-=2341`122341456789-=12`567890-=156789-=`23167890-=123434567890-=2`4567890-=
+          title: All input booleans
+          title: All lights
+          title: All media players
+          title: All sensors
+          title: All sun
+          title: All switches
+          title: All zwave
+          title: Doors Open
+          title: Home presence
+          title: Lights on
+          title: Server
+          title: Sonos
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: entities
+          type: glance
         aspect_ratio: 100%
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        card:
+        cards:
         default_zoom: 8
         entities:
-          - zone.home
-          - device_tracker.google_maps_118157225633565558044  # Ad
-  # enter sas here
-
-#debug tab showing all
-  - title: Debug
-    icon: mdi:settings
+        entity: weather.home
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        filter:
+        show_empty: false
+        title: Location
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"
+      - type: "custom:monster-card"        
+      - type: custom:monster-card
+      - type: horizontal-stack
+      - type: map
+      - type: weather-forecast
     cards:
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All binary sensors
-        filter:
-          include:
-            - domain: binary_sensor
-      - type: "custom:monster-card"
-        card:
-          type: glance
-          title: All cameras
-        filter:
-          include:
-            - domain: camera
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All climate
-        filter:
-          include:
-            - domain: climate
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All covers
-        filter:
-          include:
-            - domain: cover
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All device trackers
-        filter:
-          include:
-            - domain: device_tracker
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All input booleans
-        filter:
-          include:
-            - domain: input_boolean
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All lights
-        filter:
-          include:
-            - domain: light
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All media players
-        filter:
-          include:
-            - domain: media_player
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All sensors
-        filter:
-          include:
-            - domain: sensor
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All sun
-        filter:
-          include:
-            - domain: sun
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All switches
-        filter:
-          include:
-            - domain: switch
-      - type: "custom:monster-card"
-        card:
-          type: entities
-          title: All zwave
-        filter:
-          include:
-            - domain: zwave
-
-
-
-
-
-
+    cards:
+    icon: mdi:home
+    icon: mdi:settings
+    type: js
+    type: js
+    type: js
+  # enter sas here
+  - title: Debug
+  - title: Thuis
+  - url: /local/bignumber-card.js?v=0
+  - url: /local/gauge-card.js?v=0
+  - url: /local/monster-card.js?v=0
+#debug tab showing all
+background: radial-gradient(black, skyblue)
+name: Home
+resources:
+views:

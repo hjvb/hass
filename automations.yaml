@@ -10,25 +10,6 @@
     data_template:
       message: Low space on leecher4 @{{now().strftime("%H:%M")}}h!
   id: d54c48a0abb04d348e858fc51796db46
-- alias: turn on livingroom and garden lights 1 hour before sunset
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: -00:45:00
-  action:
-  - service: homeassistant.turn_on
-    data:
-      entity_id: group.livingroomlights
-  - service: homeassistant.turn_on
-    data:
-      entity_id: group.gardenlights
-  - service: homeassistant.turn_on
-    data:
-      entity_id: light.kitchen
-  - service: homeassistant.turn_on
-    data:
-      entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
-  id: 61ba0602058741f0b22a872bdff7195a
 - alias: turn on front door light after sunset
   trigger:
   - platform: sun
@@ -37,70 +18,16 @@
   - service: homeassistant.turn_on
     data:
       entity_id: light.voordeur
+  id: 75ac930a73394278823c971cf06eeffa
 - alias: turn off front door light after 0100
   trigger:
   - platform: time
-    at: '01:00:00'
+    at: 01:00:00
   action:
   - service: homeassistant.turn_off
     data:
       entity_id: light.voordeur
-  
-- alias: Turn off some garden lights at 23:59
-  id: turnoffgardentime
-  trigger:
-  - platform: time
-    at: '23:59:00'
-  action:
-  - service: light.turn_off
-    data:
-      entity_id: light.tuin
-  - service: homeassistant.turn_off
-    data:
-      entity_id: group.gardenlights
-
-- alias: Turn off dinner light at 19:30
-  id: turnoffdinnerlight
-  trigger:
-  - platform: time
-    at: '19:30:00'
-  action:
-  - service: light.turn_off
-    data:
-      entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
-
-
-- id: Notification_trein_naar_Noi
-  alias: Vertrektijd trein naar Noi
-  trigger:
-  - platform: zone
-    entity_id: device_tracker.google_maps_118157225633565558044
-    event: leave
-    zone: zone.work2
-  action:
-  - service: telegram_bot.send_message
-    data_template:
-      message: Vertrektijd {{ states.sensor.duivendrecht_noi.attributes.departure_time_actual
-        }} vanaf spoor {{ states.sensor.duivendrecht_noi.attributes.departure_platform
-        }}, aankomst om {{ states.sensor.duivendrecht_noi.attributes.arrival_time_actual
-        }}. Volgende trein vertrekt om {{ states.sensor.duivendrecht_noi.attributes.next
-        }}.
-      title: 'Trein naar NOI: {{ states.sensor.duivendrecht_noi.attributes.status }}.'
-- alias: '[LOCATION]: Notify when Ad leaves a zone'
-  id: notifyadleave
-  trigger:
-  - platform: zone
-    entity_id: device_tracker.google_maps_118157225633565558044
-    event: leave
-    zone: zone.Home
-  condition:
-  - condition: time
-    after: 06:00:00
-    before: '23:00:00'
-  action:
-  - service: telegram_bot.send_message
-    data_template:
-      message: Ad vertrekt van huis
+  id: bb587af3df984391acd76ced6719cbee
 - id: '1540710718548'
   alias: poweroff bedroomplug after 07:00
   trigger:
@@ -121,30 +48,101 @@
   - data:
       entity_id: switch.neo_coolcam_power_plug_12a_switch
     service: homeassistant.turn_on
-
-- alias: "[SECURITY]: Notify when door opens in the night"
-  id: notifydooropennight
+- id: '1585590709999'
+  alias: '[SECURITY]: Notify when door opens in the night'
   trigger:
-    - platform: state
-      entity_id: binary_sensor.neo_front_door
-      from: 'off'
-      to: 'on'
-  condition:    
-    - condition: time
-      after: '23:30:00'
-      before: '05:30:00'
+  - entity_id: binary_sensor.neo_front_door
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - after: '23:30:00'
+    before: 05:30:00
+    condition: time
   action:
-  - service: telegram_bot.send_message
-    data_template:
-      message: 'Front door open during the night'
-  - service: light.turn_on
-    data:
+  - data_template:
+      message: Front door open during the night
+    service: telegram_bot.send_message
+  - data:
       entity_id: light.woonkamer
       flash: long
-  - delay:
-      seconds: 3
-  - service: light.turn_off
-    data:
-      entity_id: light.woonkamer
-
-
+    service: light.turn_on
+  - delay: '[object Object]'
+  - data: {}
+    entity_id: light.woonkamer
+    service: light.turn_on
+- id: '1585590702508'
+  alias: Lights On
+  description: turn on livingroom and garden lights 1 hour before sunset
+  trigger:
+  - event: sunset
+    offset: -00:45:00
+    platform: sun
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.woonkamer
+    service: light.turn_on
+  - data: {}
+    entity_id: light.garden
+    service: light.turn_on
+  - data: {}
+    entity_id: light.kitchen
+    service: light.turn_on
+- id: '1585591927256'
+  alias: Turn off some garden lights at 23:59
+  description: Turn off some garden lights at 23:59
+  trigger:
+  - at: '23:59'
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.garden
+    service: light.turn_off
+- id: '1585591997639'
+  alias: Turn off dinner light at 19:30
+  description: ''
+  trigger:
+  - at: '19:30'
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
+    service: light.turn_off
+- id: '1586979948644'
+  alias: turn on kitchen lights small in the morning
+  description: ''
+  trigger:
+  - event: sunrise
+    offset: -01:00:00
+    platform: sun
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.hue_smart_plug_1
+    service: light.turn_on
+- id: '1586980249342'
+  alias: turn off kitchen light small at night
+  description: ''
+  trigger:
+  - at: 00:00
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.hue_smart_plug_1
+    service: light.turn_off
+- id: '1586980559761'
+  alias: turn off kitchen light small after sunrise
+  description: ''
+  trigger:
+  - event: sunrise
+    offset: 02:30:00
+    platform: sun
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.hue_smart_plug_1
+    service: light.turn_off

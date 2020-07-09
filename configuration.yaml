@@ -109,12 +109,6 @@ sensor:
     - name: Duivendrecht-Noi
       from: Dvd
       to: Laa
-  - platform: template
-    sensors:
-     babyroom_temperature:
-       friendly_name: 'Baby Kamer Temperatuur'
-       value_template: '{{sensor.philio_technology_corporation_phpat02beu_multisensor_2in1_temperature}}'
-       unit_of_measurement: '°C'
 
 
 # Text to speech

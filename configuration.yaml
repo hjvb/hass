@@ -109,7 +109,9 @@ sensor:
     - name: Duivendrecht-Noi
       from: Dvd
       to: Laa
-
+  - platform: dsmr
+    port: /dev/ttyUSB0
+    dsmr_version: 4
 
 # Text to speech
 tts:
@@ -167,6 +169,38 @@ influxdb:
   tags:
     instance: prod
     source: homeassistant
+
+utility_meter:
+  daily_power_consumption_low:
+    source: sensor.energy_consumption_tarif_1
+    cycle: daily 
+  daily_power_consumption_normal:
+    source: sensor.energy_consumption_tarif_2
+    cycle: daily
+  daily_power_production_low:
+    source: sensor.energy_production_tarif_1
+    cycle: daily 
+  daily_power_production_normal:
+    source: sensor.energy_production_tarif_2
+    cycle: daily
+  daily_gas_consumption:
+    source: sensor.gas_consumption
+    cycle: daily 
+  monthly_power_consumption_low:
+    source: sensor.energy_consumption_tarif_1
+    cycle: monthly
+  monthly_power_consumption_normal:
+    source: sensor.energy_consumption_tarif_2
+    cycle: monthly 
+  monthly_power_production_low:
+    source: sensor.energy_production_tarif_1
+    cycle: monthly
+  monthly_power_production_normal:
+    source: sensor.energy_production_tarif_2
+    cycle: monthly 
+  monthly_gas_consumption:
+    source: sensor.gas_consumption
+    cycle: monthly
 
 zwave:
   usb_path: /dev/ttyACM0

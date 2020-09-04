@@ -112,6 +112,9 @@ sensor:
   - platform: dsmr
     port: /dev/ttyUSB0
     dsmr_version: 4
+  - platform: cert_expiry
+    host: !secret baseurl
+    port: 8123
 
 # Text to speech
 tts:

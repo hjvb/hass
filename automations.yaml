@@ -87,7 +87,7 @@
     entity_id: light.garden
     service: light.turn_on
   - data: {}
-    entity_id: light.kitchen
+    entity_id: light.hue_smart_plug_1
     service: light.turn_on
 - id: '1585591927256'
   alias: Turn off some garden lights at 23:59
@@ -146,3 +146,18 @@
   - data: {}
     entity_id: light.hue_smart_plug_1
     service: light.turn_off
+- id: '1598898727888'
+  alias: Cert Expiry Notification
+  description: Send message when certificate is about to expire
+  trigger:
+  - at: 09:00:00
+    platform: time
+  condition:
+  - below: '7'
+    condition: numeric_state
+    entity_id: sensor.cert_expiry_avbhome_duckdns_org_8123
+  action:
+  - data:
+      message: SSL cert due to expire in {{ states.sensor.cert_expiry_avbhome_duckdns_org_8123.state
+        }} days
+    service: telegram_bot.send_message

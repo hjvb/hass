@@ -92,7 +92,7 @@ weather:
     api_key: !secret darkskyapi_key
 
 sensor:
-  - platform: yr
+#  - platform: yr
   - platform: systemmonitor
     resources:
     - type: disk_use_percent

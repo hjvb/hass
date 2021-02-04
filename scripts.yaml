@@ -1,0 +1,93 @@
+'1603217549622':
+  alias: sonos_say
+  sequence:
+  - data:
+      entity_id: '{{ sonos_entity }}'
+    service: sonos.snapshot
+  - data:
+      entity_id: '{{ sonos_entity }}'
+    service: sonos.unjoin
+  - data:
+      entity_id: '{{ sonos_entity }}'
+      message: '{{ message }}'
+    service: tts.google_say
+  - delay: 'delay: "{{ delay }}"'
+  - data:
+      entity_id: '{{ sonos_entity }}'
+    service: sonos.restore
+movienight:
+  alias: MovieNight
+  sequence:
+  - service: hue.hue_activate_scene
+    data:
+      group_name: Woonkamer
+      scene_name: movie night
+  - service: light.turn_off
+    data: {}
+    entity_id: light.keuken
+  - service: light.turn_off
+    data: {}
+    entity_id: light.leeslamp
+  - service: light.turn_off
+    data: {}
+    entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
+  mode: single
+default_lightning:
+  alias: default lightning
+  sequence:
+  - service: hue.hue_activate_scene
+    data:
+      group_name: Woonkamer
+      scene_name: Ontspannen
+  - service: hue.hue_activate_scene
+    data:
+      group_name: keuken
+      scene_name: default
+  - service: light.turn_off
+    data: {}
+    entity_id: light.leeslamp
+  - service: light.turn_on
+    data:
+      brightness: 85
+    entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
+  mode: single
+bright_lightning:
+  alias: bright lightning
+  sequence:
+  - service: hue.hue_activate_scene
+    data:
+      group_name: keuken
+      scene_name: Helder
+  - service: hue.hue_activate_scene
+    data:
+      group_name: Woonkamer
+      scene_name: Helder
+  - service: hue.hue_activate_scene
+    data:
+      group_name: leeslamp
+      scene_name: Helder
+  - service: light.turn_on
+    data:
+      brightness: 255
+    entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
+  mode: single
+dimmed_lightning:
+  alias: dimmed lightning
+  sequence:
+  - service: hue.hue_activate_scene
+    data:
+      group_name: Woonkamer
+      scene_name: dimgeel
+  - service: hue.hue_activate_scene
+    data:
+      group_name: keuken
+      scene_name: dimgeel
+  - service: light.turn_on
+    data:
+      brightness: 60
+    entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
+  - service: hue.hue_activate_scene
+    data:
+      group_name: leeslamp
+      scene_name: dimgeel
+  mode: single

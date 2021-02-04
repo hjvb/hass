@@ -84,11 +84,12 @@
     entity_id: light.woonkamer
     service: light.turn_on
   - data: {}
-    entity_id: light.garden
+    entity_id: light.tuin
     service: light.turn_on
   - data: {}
     entity_id: light.hue_smart_plug_1
     service: light.turn_on
+  mode: single
 - id: '1585591927256'
   alias: Turn off some garden lights at 23:59
   description: Turn off some garden lights at 23:59
@@ -98,19 +99,21 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.garden
+    entity_id: light.tuin
     service: light.turn_off
+  mode: single
 - id: '1585591997639'
-  alias: Turn off dinner light at 19:30
+  alias: Turn off dinner light at 19:00
   description: ''
   trigger:
-  - at: '19:30'
+  - at: '19:00'
     platform: time
   condition: []
   action:
   - data: {}
     entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
     service: light.turn_off
+  mode: single
 - id: '1586979948644'
   alias: turn on kitchen lights small in the morning
   description: ''
@@ -161,3 +164,15 @@
       message: SSL cert due to expire in {{ states.sensor.cert_expiry_avbhome_duckdns_org_8123.state
         }} days
     service: telegram_bot.send_message
+- id: '1603217116451'
+  alias: sonos test
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - data:
+      delay: 00:00:05
+      message: De wasmachine is klaar!
+      sonos_entity: Huiskamer
+      volume: 0.5
+    service: script.1603217549622
